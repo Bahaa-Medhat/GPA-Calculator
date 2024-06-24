@@ -13,7 +13,7 @@ public class GPACalculator {
 		courses.add(course);
 	}
 	
-	public static String gpaLetter(double gpa) {
+	public String gpaLetter(double gpa) {
 		String letter = "";
 		
 		if(gpa >= 0.7 && gpa <= 0.99)
