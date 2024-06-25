@@ -2,10 +2,10 @@ package gpa.model;
 
 public class Course {
 	private String courseName;
-	private double grade;
+	private String grade;
 	private int creditHours;
 
-	public Course(String courseName, int grade, int creditHours) {
+	public Course(String courseName, String grade, int creditHours) {
 		this.setCourseName(courseName);
 		this.setGrade(grade);
 		this.setCreditHours(creditHours);
@@ -19,11 +19,11 @@ public class Course {
 		this.courseName = courseName;
 	}
 
-	public double getGrade() {
+	public String getGrade() {
 		return grade;
 	}
 
-	public void setGrade(double grade) {
+	public void setGrade(String grade) {
 		this.grade = grade;
 	}
 

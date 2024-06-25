@@ -13,37 +13,23 @@ public class GPACalculator {
 		courses.add(course);
 	}
 
-	public String gpaLetter(double gpa) {
-		String letter = "";
-
-		if (gpa >= 0.7 && gpa <= 0.99)
-			letter = "A+";
-		else if (gpa >= 1.0 && gpa <= 1.29)
-			letter = "A";
-		else if (gpa >= 1.3 && gpa <= 1.69)
-			letter = "A-";
-		else if (gpa >= 1.7 && gpa <= 1.99)
-			letter = "B+";
-		else if (gpa >= 2.0 && gpa <= 2.29)
-			letter = "B";
-		else if (gpa >= 2.3 && gpa <= 2.69)
-			letter = "B-";
-		else if (gpa >= 2.7 && gpa <= 2.99)
-			letter = "C+";
-		else if (gpa >= 3.0 && gpa <= 3.29)
-			letter = "C";
-		else if (gpa >= 3.3 && gpa <= 3.69)
-			letter = "C-";
-		else if (gpa >= 3.7 && gpa <= 3.99)
-			letter = "D+";
-		else if (gpa >= 4.0 && gpa <= 4.99)
-			letter = "D";
-		else if (gpa >= 5.0 && gpa <= 6.00)
-			letter = "F";
-		else
-			letter = "X";
-
-		return letter;
+	public double courseGrade(String gpa) {
+		double grade = 0;
+		switch(gpa) {
+		case "A+": grade = 100;break;
+		case "A": grade = 93.9;break;
+		case "A-": grade = 89.9;break;
+		case "B+": grade = 85.9;break;
+		case "B": grade = 81.9;break;
+		case "B-": grade = 77.9;break;
+		case "C+": grade = 73.9;break;
+		case "C": grade = 69.9;break;
+		case "C-": grade = 64.9;break;
+		case "D+": grade = 59.9;break;
+		case "D": grade = 54.9;break;
+		default: grade = 49.9;
+		}
+		return grade;
 	}
 
 	public String calculateGPA() {
@@ -54,9 +40,10 @@ public class GPACalculator {
 		double gpa = 0;
 		String gpaLetter = "";
 
+
 		for (Course course : courses) {
 			totalCreditHours += course.getCreditHours();
-			totalGrade += course.getGrade() * course.getCreditHours();
+			totalGrade += courseGrade(course.getGrade()) * course.getCreditHours();
 		}
 
 		gpaGrade = totalGrade / totalCreditHours;

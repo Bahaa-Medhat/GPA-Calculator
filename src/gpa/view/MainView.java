@@ -90,7 +90,7 @@ public class MainView extends Application {
 		TextField creditHoursField = (TextField) lastFields.getChildren().get(2);
 
 		String courseName = courseNameField.getText();
-		int grade = Integer.parseInt(gradeField.getText());
+		String grade = gradeField.getText();
 		int creditHours = Integer.parseInt(creditHoursField.getText());
 
 		Course course = new Course(courseName, grade, creditHours);
