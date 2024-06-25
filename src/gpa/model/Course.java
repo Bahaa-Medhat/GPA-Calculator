@@ -35,5 +35,9 @@ public class Course {
 		this.creditHours = creditHours;
 	}
 	
+	public String displayCourse() {
+		return "Course Name: " + courseName + "\n Grade: " + grade + "\n Credit Hours: " + creditHours;
+	}
+	
 	
 }
