@@ -4,7 +4,7 @@ public class Course {
 	private String courseName;
 	private double grade;
 	private int creditHours;
-	
+
 	public Course(String courseName, int grade, int creditHours) {
 		this.setCourseName(courseName);
 		this.setGrade(grade);
@@ -34,10 +34,9 @@ public class Course {
 	public void setCreditHours(int creditHours) {
 		this.creditHours = creditHours;
 	}
-	
+
 	public String displayCourse() {
 		return "Course Name: " + courseName + "\n Grade: " + grade + "\n Credit Hours: " + creditHours;
 	}
-	
-	
+
 }
