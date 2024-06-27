@@ -99,22 +99,8 @@ public class MainView extends Application {
 
 		Button edit = new Button("Edit");
 		edit.setStyle("-fx-background-color: red; " + "-fx-text-fill: white; " + "-fx-font-weight: bold; ");
-		edit.setOnAction(e -> {
-			try {
-				if(!courseNameField.getText().equals(""))
-					model.removeCourse();
-				String courseName = courseNameField.getText();
-				String grade = gradeField.getText().toUpperCase();
-				int creditHours = Integer.parseInt(creditHoursField.getText());
-
-				Course course = new Course(courseName, grade, creditHours);
-				model.addCourse(course);
-			} catch (IndexOutOfBoundsException e1) {
-				showAlert("Invalid Action", "Cannot edit an empty course");
-			} catch (NumberFormatException e2) {
-				showAlert("Invalid Action", "Cannot edit an empty course");
-			}
-		});
+		GPAController controller = new GPAController(model, this);
+		controller.handleEditButton(edit, courseNameField, gradeField, creditHoursField);
 
 		fields.getChildren().addAll(courseNameField, gradeField, creditHoursField, edit);
 		fields.setAlignment(Pos.TOP_CENTER);
@@ -153,7 +139,7 @@ public class MainView extends Application {
 		gpaLabel.setText(gpa);
 	}
 
-	private void showAlert(String title, String message) {
+	public void showAlert(String title, String message) {
 	    Alert alert = new Alert(AlertType.WARNING);
 	    alert.setTitle(title);
 	    alert.setHeaderText(null);
@@ -188,7 +174,6 @@ public class MainView extends Application {
 
 	    alert.showAndWait();
 	}
-
 
 	public static void main(String[] args) {
 		launch(args);
