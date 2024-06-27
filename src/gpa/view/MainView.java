@@ -6,6 +6,8 @@ import gpa.model.GPACalculator;
 import javafx.application.Application;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
@@ -63,14 +65,13 @@ public class MainView extends Application {
 		buttonField.getChildren().addAll(addCourseButton, calculateGPAButton);
 
 		gpaLabel = new Label();
-		gpaLabel.setStyle("-fx-font-size: 24px; " + "-fx-font-weight: bold; " + "-fx-text-fill: #333333; "
-				+ "-fx-padding: 16px; " + "-fx-background-color: #ffffff; " + "-fx-border-color: #cccccc; "
-				+ "-fx-border-width: 2px; " + "-fx-border-radius: 5px; " + "-fx-background-radius: 5px;");
+		gpaLabel.setStyle("-fx-font-size: 24px; " + "-fx-font-weight: bold; " + "-fx-text-fill: #FF0000; "
+				+ "-fx-padding: 16px; " + "-fx-background-radius: 5px;");
 
 		window.getChildren().addAll(title, courseFieldsContainer, buttonField, gpaLabel);
 		window.setAlignment(Pos.TOP_CENTER);
 
-		Scene scene = new Scene(window, 450, 600);
+		Scene scene = new Scene(window, 600, 600);
 		primaryStage.setScene(scene);
 		primaryStage.setTitle("GPA Calculator");
 		primaryStage.show();
@@ -98,30 +99,58 @@ public class MainView extends Application {
 				"-fx-prompt-text-fill: #aaaaaa; " + "-fx-background-color: #ffffff; " + "-fx-border-color: #cccccc; "
 						+ "-fx-border-width: 1px; " + "-fx-background-radius: 5px; " + "-fx-padding: 5px;");
 
-		fields.getChildren().addAll(courseNameField, gradeField, creditHoursField);
+		Button edit = new Button("Edit");
+		edit.setOnAction(e -> {
+			try {
+				model.removeCourse();
+				String courseName = courseNameField.getText();
+				String grade = gradeField.getText().toUpperCase();
+				int creditHours = Integer.parseInt(creditHoursField.getText());
+
+				Course course = new Course(courseName, grade, creditHours);
+				model.addCourse(course);
+			} catch (IndexOutOfBoundsException e1) {
+				showAlert("Invalid Action", "Cannot edit an empty course");
+			}
+		});
+
+		fields.getChildren().addAll(courseNameField, gradeField, creditHoursField, edit);
 		fields.setAlignment(Pos.TOP_CENTER);
 		courseFieldsContainer.getChildren().add(fields);
 	}
 
 	private void addCourse() {
-		HBox lastFields = (HBox) courseFieldsContainer.getChildren()
-				.get(courseFieldsContainer.getChildren().size() - 1);
-		TextField courseNameField = (TextField) lastFields.getChildren().get(0);
-		TextField gradeField = (TextField) lastFields.getChildren().get(1);
-		TextField creditHoursField = (TextField) lastFields.getChildren().get(2);
+		try {
+			HBox lastFields = (HBox) courseFieldsContainer.getChildren()
+					.get(courseFieldsContainer.getChildren().size() - 1);
+			TextField courseNameField = (TextField) lastFields.getChildren().get(0);
+			TextField gradeField = (TextField) lastFields.getChildren().get(1);
+			TextField creditHoursField = (TextField) lastFields.getChildren().get(2);
 
-		String courseName = courseNameField.getText();
-		String grade = gradeField.getText().toUpperCase();
-		int creditHours = Integer.parseInt(creditHoursField.getText());
+			String courseName = courseNameField.getText();
+			String grade = gradeField.getText().toUpperCase();
+			int creditHours = Integer.parseInt(creditHoursField.getText());
 
-		Course course = new Course(courseName, grade, creditHours);
-		model.addCourse(course);
+			Course course = new Course(courseName, grade, creditHours);
+			model.addCourse(course);
 
-		addCourseFields();
+			addCourseFields();
+		} catch (NumberFormatException e) {
+			showAlert("Invalid Credit Hours", "Please enter a valid credit hours");
+		}
+
 	}
 
 	public void displayGPA(String gpa) {
 		gpaLabel.setText(gpa);
+	}
+
+	private void showAlert(String title, String message) {
+		Alert alert = new Alert(AlertType.WARNING);
+		alert.setTitle(title);
+		alert.setHeaderText(null);
+		alert.setContentText(message);
+		alert.showAndWait();
 	}
 
 	public static void main(String[] args) {

@@ -12,6 +12,10 @@ public class GPACalculator {
 	public void addCourse(Course course) {
 		courses.add(course);
 	}
+	
+	public void removeCourse() {
+		courses.remove(courses.size() - 1);
+	}
 
 	public double courseGrade(String gpa) {
 		double grade = 0;
