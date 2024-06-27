@@ -5,17 +5,16 @@ import gpa.model.Course;
 import gpa.model.GPACalculator;
 import javafx.application.Application;
 import javafx.geometry.Pos;
+import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
+import javafx.scene.control.DialogPane;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
-import javafx.scene.layout.Background;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
-import javafx.scene.paint.Color;
-import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
 
 public class MainView extends Application {
@@ -31,12 +30,11 @@ public class MainView extends Application {
 
 		VBox window = new VBox();
 		window.setSpacing(10);
-		window.setStyle("-fx-background-color: linear-gradient(to bottom, #ffffff, #f0f0f0); " + "-fx-padding: 20px;");
+		window.setStyle("-fx-background-color: royalblue; " + "-fx-padding: 20px;");
 
 		title = new Label("GPA Calculator");
-		title.setStyle("-fx-font-size: 36px; " + "-fx-font-weight: bold; " + "-fx-text-fill: #333333; "
-				+ "-fx-padding: 20px; " + "-fx-background-color: #ffffff; " + "-fx-border-color: #cccccc; "
-				+ "-fx-border-width: 2px; " + "-fx-border-radius: 5px; " + "-fx-background-radius: 5px;");
+		title.setStyle(
+				"-fx-font-size: 36px; " + "-fx-font-weight: bold; " + "-fx-text-fill: white; " + "-fx-padding: 20px; ");
 
 		courseFieldsContainer = new VBox();
 		courseFieldsContainer.setSpacing(10);
@@ -50,12 +48,12 @@ public class MainView extends Application {
 		buttonField.setAlignment(Pos.TOP_CENTER);
 
 		addCourseButton = new Button("Add Course");
-		addCourseButton.setStyle("-fx-background-color: #4caf50; " + "-fx-text-fill: white; "
-				+ "-fx-font-weight: bold; " + "-fx-padding: 10px 20px; " + "-fx-background-radius: 5px;");
+		addCourseButton.setStyle("-fx-background-color: gold; " + "-fx-text-fill: black; " + "-fx-font-weight: bold; "
+				+ "-fx-padding: 10px 20px; " + "-fx-background-radius: 5px;");
 		addCourseButton.setOnAction(event -> addCourse());
 
 		calculateGPAButton = new Button("Calculate GPA");
-		calculateGPAButton.setStyle("-fx-background-color: #2196f3; " + "-fx-text-fill: white; "
+		calculateGPAButton.setStyle("-fx-background-color: gold; " + "-fx-text-fill: black; "
 				+ "-fx-font-weight: bold; " + "-fx-padding: 10px 20px; " + "-fx-background-radius: 5px;");
 		calculateGPAButton.setOnAction(event -> {
 			GPAController controller = new GPAController(model, this);
@@ -65,7 +63,7 @@ public class MainView extends Application {
 		buttonField.getChildren().addAll(addCourseButton, calculateGPAButton);
 
 		gpaLabel = new Label();
-		gpaLabel.setStyle("-fx-font-size: 24px; " + "-fx-font-weight: bold; " + "-fx-text-fill: #FF0000; "
+		gpaLabel.setStyle("-fx-font-size: 24px; " + "-fx-font-weight: bold; " + "-fx-text-fill: beige; "
 				+ "-fx-padding: 16px; " + "-fx-background-radius: 5px;");
 
 		window.getChildren().addAll(title, courseFieldsContainer, buttonField, gpaLabel);
@@ -100,6 +98,7 @@ public class MainView extends Application {
 						+ "-fx-border-width: 1px; " + "-fx-background-radius: 5px; " + "-fx-padding: 5px;");
 
 		Button edit = new Button("Edit");
+		edit.setStyle("-fx-background-color: red; " + "-fx-text-fill: white; " + "-fx-font-weight: bold; ");
 		edit.setOnAction(e -> {
 			try {
 				model.removeCourse();
@@ -146,12 +145,41 @@ public class MainView extends Application {
 	}
 
 	private void showAlert(String title, String message) {
-		Alert alert = new Alert(AlertType.WARNING);
-		alert.setTitle(title);
-		alert.setHeaderText(null);
-		alert.setContentText(message);
-		alert.showAndWait();
+	    Alert alert = new Alert(AlertType.WARNING);
+	    alert.setTitle(title);
+	    alert.setHeaderText(null);
+	    alert.setContentText(message);
+
+	    // Style the dialog pane
+	    DialogPane dialogPane = alert.getDialogPane();
+	    dialogPane.setStyle(
+	        "-fx-background-color: gold; " +
+	        "-fx-border-color: black; " +
+	        "-fx-border-width: 2px; " +
+	        "-fx-border-radius: 5px; " +
+	        "-fx-background-radius: 5px;"
+	    );
+
+	    Node content = dialogPane.lookup(".content");
+	    if (content != null) {
+	        content.setStyle(
+	            "-fx-text-fill: black; " +
+	            "-fx-font-weight: bold; " +
+	            "-fx-padding: 10px;"
+	        );
+	    }
+
+	    Node buttonBar = dialogPane.lookup(".button-bar");
+	    if (buttonBar != null) {
+	        buttonBar.setStyle(
+	            "-fx-background-color: #FFD700; " +
+	            "-fx-padding: 10px;"
+	        );
+	    }
+
+	    alert.showAndWait();
 	}
+
 
 	public static void main(String[] args) {
 		launch(args);
