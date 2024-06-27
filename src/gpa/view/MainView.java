@@ -9,9 +9,11 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import javafx.scene.layout.Background;
 import javafx.scene.layout.HBox;
-import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
+import javafx.scene.paint.Color;
+import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
 
 public class MainView extends Application {
@@ -25,25 +27,34 @@ public class MainView extends Application {
 	public void start(Stage primaryStage) throws Exception {
 		model = new GPACalculator();
 
-		VBox components = new VBox();
-		components.setSpacing(10);
+		VBox window = new VBox();
+		window.setSpacing(10);
+		window.setStyle("-fx-background-color: linear-gradient(to bottom, #ffffff, #f0f0f0); " + "-fx-padding: 20px;");
 
 		title = new Label("GPA Calculator");
 		title.setStyle("-fx-font-size: 36px; " + "-fx-font-weight: bold; " + "-fx-text-fill: #333333; "
-				+ "-fx-padding: 20px; " + "-fx-background-color: #f0f0f0; " + "-fx-border-color: #cccccc; "
+				+ "-fx-padding: 20px; " + "-fx-background-color: #ffffff; " + "-fx-border-color: #cccccc; "
 				+ "-fx-border-width: 2px; " + "-fx-border-radius: 5px; " + "-fx-background-radius: 5px;");
 
 		courseFieldsContainer = new VBox();
 		courseFieldsContainer.setSpacing(10);
+		courseFieldsContainer
+				.setStyle("-fx-padding: 10px; " + "-fx-background-color: #f9f9f9; " + "-fx-border-color: #dddddd; "
+						+ "-fx-border-width: 1px; " + "-fx-border-radius: 5px; " + "-fx-background-radius: 5px;");
 		addCourseFields();
 
 		HBox buttonField = new HBox();
 		buttonField.setSpacing(10);
+		buttonField.setAlignment(Pos.TOP_CENTER);
 
 		addCourseButton = new Button("Add Course");
+		addCourseButton.setStyle("-fx-background-color: #4caf50; " + "-fx-text-fill: white; "
+				+ "-fx-font-weight: bold; " + "-fx-padding: 10px 20px; " + "-fx-background-radius: 5px;");
 		addCourseButton.setOnAction(event -> addCourse());
 
 		calculateGPAButton = new Button("Calculate GPA");
+		calculateGPAButton.setStyle("-fx-background-color: #2196f3; " + "-fx-text-fill: white; "
+				+ "-fx-font-weight: bold; " + "-fx-padding: 10px 20px; " + "-fx-background-radius: 5px;");
 		calculateGPAButton.setOnAction(event -> {
 			GPAController controller = new GPAController(model, this);
 			controller.handleCalculateGPA();
@@ -52,17 +63,17 @@ public class MainView extends Application {
 		buttonField.getChildren().addAll(addCourseButton, calculateGPAButton);
 
 		gpaLabel = new Label();
+		gpaLabel.setStyle("-fx-font-size: 24px; " + "-fx-font-weight: bold; " + "-fx-text-fill: #333333; "
+				+ "-fx-padding: 16px; " + "-fx-background-color: #ffffff; " + "-fx-border-color: #cccccc; "
+				+ "-fx-border-width: 2px; " + "-fx-border-radius: 5px; " + "-fx-background-radius: 5px;");
 
-		components.getChildren().addAll(title, courseFieldsContainer, buttonField, gpaLabel);
+		window.getChildren().addAll(title, courseFieldsContainer, buttonField, gpaLabel);
+		window.setAlignment(Pos.TOP_CENTER);
 
-		StackPane window = new StackPane();
-		window.getChildren().add(components);
-		StackPane.setAlignment(components, Pos.CENTER);
-
-		Scene scene = new Scene(window, 1000, 600);
+		Scene scene = new Scene(window, 450, 600);
 		primaryStage.setScene(scene);
-		primaryStage.show();
 		primaryStage.setTitle("GPA Calculator");
+		primaryStage.show();
 	}
 
 	private void addCourseFields() {
@@ -71,14 +82,24 @@ public class MainView extends Application {
 
 		TextField courseNameField = new TextField();
 		courseNameField.setPromptText("Course Name");
+		courseNameField.setStyle(
+				"-fx-prompt-text-fill: #aaaaaa; " + "-fx-background-color: #ffffff; " + "-fx-border-color: #cccccc; "
+						+ "-fx-border-width: 1px; " + "-fx-background-radius: 5px; " + "-fx-padding: 5px;");
 
 		TextField gradeField = new TextField();
 		gradeField.setPromptText("Grade");
+		gradeField.setStyle(
+				"-fx-prompt-text-fill: #aaaaaa; " + "-fx-background-color: #ffffff; " + "-fx-border-color: #cccccc; "
+						+ "-fx-border-width: 1px; " + "-fx-background-radius: 5px; " + "-fx-padding: 5px;");
 
 		TextField creditHoursField = new TextField();
 		creditHoursField.setPromptText("Credit Hours");
+		creditHoursField.setStyle(
+				"-fx-prompt-text-fill: #aaaaaa; " + "-fx-background-color: #ffffff; " + "-fx-border-color: #cccccc; "
+						+ "-fx-border-width: 1px; " + "-fx-background-radius: 5px; " + "-fx-padding: 5px;");
 
 		fields.getChildren().addAll(courseNameField, gradeField, creditHoursField);
+		fields.setAlignment(Pos.TOP_CENTER);
 		courseFieldsContainer.getChildren().add(fields);
 	}
 

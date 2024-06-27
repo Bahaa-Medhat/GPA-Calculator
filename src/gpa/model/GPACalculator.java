@@ -87,6 +87,6 @@ public class GPACalculator {
 		} else
 			gpaLetter = "X";
 
-		return result + gpa + " [" + gpaGrade + "% (" + gpaLetter + ") " + "]";
+		return result + gpa + " [" + String.format("%.3f",gpaGrade) + "% (" + gpaLetter + ") " + "]";
 	}
 }
