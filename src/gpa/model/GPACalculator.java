@@ -8,6 +8,10 @@ public class GPACalculator {
 	public GPACalculator() {
 		this.courses = new ArrayList<Course>();
 	}
+	
+	public ArrayList<Course> getCourses(){
+		return courses;
+	}
 
 	public void addCourse(Course course) {
 		courses.add(course);

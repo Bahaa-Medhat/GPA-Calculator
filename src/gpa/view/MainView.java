@@ -101,7 +101,8 @@ public class MainView extends Application {
 		edit.setStyle("-fx-background-color: red; " + "-fx-text-fill: white; " + "-fx-font-weight: bold; ");
 		edit.setOnAction(e -> {
 			try {
-				model.removeCourse();
+				if(!courseNameField.getText().equals(""))
+					model.removeCourse();
 				String courseName = courseNameField.getText();
 				String grade = gradeField.getText().toUpperCase();
 				int creditHours = Integer.parseInt(creditHoursField.getText());
@@ -109,6 +110,8 @@ public class MainView extends Application {
 				Course course = new Course(courseName, grade, creditHours);
 				model.addCourse(course);
 			} catch (IndexOutOfBoundsException e1) {
+				showAlert("Invalid Action", "Cannot edit an empty course");
+			} catch (NumberFormatException e2) {
 				showAlert("Invalid Action", "Cannot edit an empty course");
 			}
 		});
@@ -122,6 +125,7 @@ public class MainView extends Application {
 		try {
 			HBox lastFields = (HBox) courseFieldsContainer.getChildren()
 					.get(courseFieldsContainer.getChildren().size() - 1);
+			
 			TextField courseNameField = (TextField) lastFields.getChildren().get(0);
 			TextField gradeField = (TextField) lastFields.getChildren().get(1);
 			TextField creditHoursField = (TextField) lastFields.getChildren().get(2);
@@ -132,7 +136,12 @@ public class MainView extends Application {
 
 			Course course = new Course(courseName, grade, creditHours);
 			model.addCourse(course);
-
+			
+			if(model.getCourses().size() > 1) {
+				HBox beforeLastFields = (HBox) courseFieldsContainer.getChildren()
+						.get(courseFieldsContainer.getChildren().size() - 2);
+				beforeLastFields.getChildren().get(3).setDisable(true);;
+			}
 			addCourseFields();
 		} catch (NumberFormatException e) {
 			showAlert("Invalid Credit Hours", "Please enter a valid credit hours");
