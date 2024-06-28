@@ -46,7 +46,7 @@ public class CourseWork {
     }
     
     public String calculateCourseWork() {
-        String result = "Your Course Work is ";
+        String result = "";
         double totalGrade = 0;
         double totalWeight = 0;
         
