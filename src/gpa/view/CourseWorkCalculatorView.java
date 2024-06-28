@@ -54,13 +54,13 @@ public class CourseWorkCalculatorView {
         Button switchToMainViewButton = new Button("Switch to GPA Calculator");
         switchToMainViewButton.setStyle("-fx-background-color: gold; " + "-fx-text-fill: black; "
                 + "-fx-font-weight: bold; " + "-fx-padding: 10px 20px; " + "-fx-background-radius: 5px;");
-        switchToMainViewButton.setOnAction(e -> mainApp.showMainView());
+        switchToMainViewButton.setOnAction(e -> mainApp.closeCourseWorkView());
 
         window.add(numberOfSections, 0, 0);
         window.add(addSectionsButton, 1, 0);
         window.add(sectionField, 0, 1, 2, 1);
         window.add(calculateCourseWorkButton, 0, 2);
-        window.add(courseWorkLabel, 0, 3);
+        window.add(courseWorkLabel, 0, 3, 2, 1);
         window.add(switchToMainViewButton, 1, 2);
 
         return new Scene(window, 600, 600);
