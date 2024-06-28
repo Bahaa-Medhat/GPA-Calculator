@@ -49,9 +49,9 @@ public class CourseWorkCalculatorView {
 		calculateCourseWorkButton = new Button("Calculate Course Work");
 		calculateCourseWorkButton.setStyle("-fx-background-color: gold; " + "-fx-text-fill: black; "
 				+ "-fx-font-weight: bold; " + "-fx-padding: 10px 20px; " + "-fx-background-radius: 5px;");
-		calculateCourseWorkButton.setOnAction(e -> courseWorkLabel.setText("Your course work is " + calculateCourseWork()));
+		calculateCourseWorkButton.setOnAction(e -> courseWorkLabel.setText("Course Work: " + calculateCourseWork()));
 
-		courseWorkLabel = new Label();
+		courseWorkLabel = new Label("Course Work:");
 		courseWorkLabel.setStyle("-fx-font-size: 24px; " + "-fx-font-weight: bold; " + "-fx-text-fill: beige; "
 				+ "-fx-padding: 16px; " + "-fx-background-radius: 5px;");
 
@@ -64,9 +64,9 @@ public class CourseWorkCalculatorView {
 		calculateFinalExamButton.setStyle("-fx-background-color: gold; " + "-fx-text-fill: black; "
 				+ "-fx-font-weight: bold; " + "-fx-padding: 10px 20px; " + "-fx-background-radius: 5px;");
 		calculateFinalExamButton
-				.setOnAction(e -> finalExamLabel.setText(calculateFinalExamGrade(totalGrade.getValue())));
+				.setOnAction(e -> finalExamLabel.setText("Final Exam: " + calculateFinalExamGrade(totalGrade.getValue())+ "%"));
 
-		finalExamLabel = new Label();
+		finalExamLabel = new Label("Final Exam:");
 		finalExamLabel.setStyle("-fx-font-size: 24px; " + "-fx-font-weight: bold; " + "-fx-text-fill: beige; "
 				+ "-fx-padding: 16px; " + "-fx-background-radius: 5px;");
 
@@ -80,10 +80,10 @@ public class CourseWorkCalculatorView {
 		window.add(sectionField, 0, 1, 2, 1);
 		window.add(calculateCourseWorkButton, 0, 2);
 		window.add(totalGrade, 0, 4);
-		window.add(calculateFinalExamButton, 0, 5);
+		window.add(calculateFinalExamButton, 1, 4);
 		window.add(courseWorkLabel, 0, 6, 2, 1);
 		window.add(finalExamLabel, 0, 7, 2, 1);
-		window.add(switchToMainViewButton, 0, 8);
+		window.add(switchToMainViewButton, 1, 8);
 
 		return new Scene(window, 600, 600);
 	}
@@ -157,6 +157,6 @@ public class CourseWorkCalculatorView {
 		double courseWork = Double.parseDouble(model.calculateCourseWork().substring(0, 4));
 		finalExam = (totalGrade - courseWork) / finalWeight;
 
-		return "You got " + String.format("%.3f",finalExam * 100) + "% in your final exam";
+		return String.format("%.3f",finalExam * 100);
 	}
 }
